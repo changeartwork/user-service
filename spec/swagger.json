@@ -1,0 +1,238 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "REST endpoint documentation of Auth service APIs",
+        "version": "1.0.0",
+        "title": "Auth Service API",
+        "contact": {
+            "email": "tony.dev@changeartwork.com"
+        }
+    },
+    "schemes": [
+        "http"
+    ],
+    "host": "dev.changeartwork.com",
+    "basePath": "/v1/api/auth",
+    "paths": {
+        "/register": {
+            "post": {
+                "summary": "Register new user",
+                "description": "Create new account for client or admin, API is used internally by the admin or super admin.",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "name",
+                        "description": "Name of the user",
+                        "type": "string",
+                        "required": true,
+                        "example": "Tony Dev"
+                    },
+                    {
+                        "in": "body",
+                        "name": "email",
+                        "description": "An unique email address to register",
+                        "type": "string",
+                        "required": true,
+                        "example": "tony.dev@changeartwork.com"
+                    },
+                    {
+                        "in": "body",
+                        "name": "password",
+                        "description": "Password for the user account",
+                        "type": "string",
+                        "required": true,
+                        "example": "pass123"
+                    },
+                    {
+                        "in": "body",
+                        "name": "role",
+                        "description": "Role of the account to provide authorizations",
+                        "type": "string",
+                        "enum": [
+                            "client",
+                            "admin",
+                            "super-admin"
+                        ],
+                        "required": true,
+                        "example": "admin"
+                    }
+
+                ],
+                "responses": {
+                    "201": {
+                        "description": "User Registered successfully",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "User Registered successfully"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "All fields are required"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "User already Exist. Please Login"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Something went wrong"
+                                },
+                                "error":{
+                                    "type": "string",
+                                    "example": "Error in account creation due to server issue."
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "summary": "Login authentication",
+                "description": "Authenticate the user credentials, API is used publicly to login into app.",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "email",
+                        "description": "An unique email address to register",
+                        "type": "string",
+                        "required": true,
+                        "example": "tony.dev@changeartwork.com"
+                    },
+                    {
+                        "in": "body",
+                        "name": "password",
+                        "description": "Password for the user account",
+                        "type": "string",
+                        "required": true,
+                        "example": "pass123"
+                    }
+
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login successfull",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Login successfull"
+                                },
+                                "accessToken": {
+                                    "type": "string",
+                                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYTMzYjRlZmE5NjZhNjcxMDFmMTkzYyIsImlhdCI6MTY3MTY0NzExNywiZXhwIjoxNjcxNjUwNzE3fQ.SEyHjBXtTlu7C6E9FSkJqQYqVeBH8ZZBX-kSp4sh4BU"
+                                },
+                                "user":{
+                                    "type": "object",
+                                    "properties":{
+                                        "id": {
+                                            "type": "string",
+                                            "example": "63a33b4efa966a67101f193c"
+                                        },
+                                        "email":{
+                                            "type": "string",
+                                            "example": "tony.dev@changeartwork.com"
+                                        },
+                                        "name":{
+                                            "type": "string",
+                                            "example": "Tony Dev"
+                                        },
+                                        "role":{
+                                            "type": "string",
+                                            "example": "admin"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Invalid Password!"
+                                },
+                                "accessToken":{
+                                    "type": "string",
+                                    "example": null
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "User Not found."
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Something went wrong"
+                                },
+                                "error":{
+                                    "type": "string",
+                                    "example": "Error in account login due to server issue."
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
