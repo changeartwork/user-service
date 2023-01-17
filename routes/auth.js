@@ -82,6 +82,15 @@ Router.post('/login',
             message: "Invalid Password!"
           });
       }
+
+      // Authorization validation
+      if(req.body.role != user.role){
+        return res.status(401)
+        .send({
+          accessToken: null,
+          message: "Unauthorized Access!"
+        });
+      }
       //signing token with user id
       var token = jwt.sign({
         id: user.id
