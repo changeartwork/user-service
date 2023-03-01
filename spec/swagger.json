@@ -16,7 +16,7 @@
     "paths": {
         "/register": {
             "post": {
-                "summary": "Register new user",
+                "summary": "[Deprecated] Register new user",
                 "description": "Create new account for client or admin, API is used internally by the admin or super admin.",
                 "produces": [
                     "application/json"
@@ -122,7 +122,7 @@
         },
         "/login": {
             "post": {
-                "summary": "Login authentication",
+                "summary": "[Deprecated] Login authentication",
                 "description": "Authenticate the user credentials, API is used publicly to login into app.",
                 "produces": [
                     "application/json"
@@ -231,6 +231,211 @@
                             }
                         }
                     }
+                }
+            }
+        },
+        "/register-client": {
+            "post": {
+                "summary": "Register new client",
+                "description": "Create new account for client, API is used internally by the admin or super admin.",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "client_id",
+                        "description": "Unquie client ID",
+                        "type": "string",
+                        "required": true,
+                        "example": "1022"
+                    },
+                    {
+                        "in": "body",
+                        "name": "profile",
+                        "description": "List profiles associated with the client ID",
+                        "required": true,
+                        "schema":{
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/profileList"
+                            }
+                        }
+                    },
+                    {
+                        "in": "body",
+                        "name": "password",
+                        "description": "Password for the client account. Internally it will be encrypted and decrypted.",
+                        "type": "string",
+                        "required": true,
+                        "example": "pass123"
+                    },
+                    {
+                        "in": "body",
+                        "name": "business_name",
+                        "description": "Business name of the client account.",
+                        "type": "string",
+                        "example": "cuemindai"
+                    },
+                    {
+                        "in": "body",
+                        "name": "phone_number",
+                        "description": "Phone number of the client account.",
+                        "type": "string",
+                        "required": true,
+                        "example": "9898909878"
+                    }, 
+                    {
+                        "in": "body",
+                        "name": "payment_terms_in_days",
+                        "description": "Payment terms in days.",
+                        "type": "string",
+                        "enum": [
+                            "7",
+                            "15",
+                            "30"
+                        ],
+                        "example": "7",
+                        "required": true
+                    },
+                    {
+                        "in": "body",
+                        "name": "currency_code",
+                        "description": "Currency code of the client account.",
+                        "type": "string",
+                        "enum": [
+                            "USD",
+                            "CAD",
+                            "GBP"
+                        ],
+                        "example": "USD",
+                        "required": true
+                    },
+                    {
+                        "in": "body",
+                        "name": "payment_mode",
+                        "description": "Payment mode of the client account.",
+                        "type": "string",
+                        "enum": ["CC", "CCF", "PP", "CQ", "ACT"],
+                        "required": true,
+                        "example": "CC"
+                    },
+                    {
+                        "in": "body",
+                        "name": "city",
+                        "description": "City of the client account.",
+                        "type": "string",
+                        "required": true,
+                        "example": "Liverpool"
+                    },
+                    {
+                        "in": "body",
+                        "name": "state",
+                        "description": "State of the client account.",
+                        "type": "string",
+                        "required": true,
+                        "example": "Washington DC"
+                    },
+                    {
+                        "in": "body",
+                        "name": "country",
+                        "description": "Country of the client account.",
+                        "type": "string",
+                        "required": true,
+                        "example": "US"
+                    },
+                    {
+                        "in": "body",
+                        "name": "zipcode",
+                        "description": "Zip code of the client account.",
+                        "type": "string",
+                        "required": true,
+                        "example": "500432"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Client {client_id} registered successfully",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Client 1022 registered successfully"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Check the manditory fields."
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Client already Exist. Please Login"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Something went wrong"
+                                },
+                                "error":{
+                                    "type": "string",
+                                    "example": "Error in account creation due to server issue."
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    
+    "definitions": {
+        "profileList": {
+            "type": "object",
+            "properties": {
+                "first_name": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Tony"
+                },
+                "last_name": {
+                    "type": "string",
+                    "required": true,
+                    "example": "Dev"
+                },
+                "email": {
+                    "type": "string",
+                    "required": true,
+                    "example": "tony.dev@changeartwork.com"
+                },
+                "avatar": {
+                    "type": "string",
+                    "example": "../avatar.png"
                 }
             }
         }
