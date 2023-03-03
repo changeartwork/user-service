@@ -146,17 +146,27 @@ Router.post('/login-client',
         //signing token with client id
         var token = jwt.sign({
           client_id: client.client_id,
-          profile: client.profile
+          role: client.role,
+          profile: req.body.email
         }, process.env.TOKEN_KEY, {
           expiresIn: '1h'
         });
+
+        //filter only the logged client profile
+        var filterClient = (profile, email) => {
+          return profile.filter(function(e){
+            return e.email == email
+          })
+        }
+ 
 
         //responding to client request with client profile success message and  access token .
         res.status(200)
           .send({
             client: {
               client_id: client.client_id,
-              status: client.client_status
+              status: client.client_status,
+              profile: filterClient(client.profile, req.body.email)
             },
             message: "Login successfull",
             accessToken: token,

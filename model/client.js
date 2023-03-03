@@ -30,7 +30,8 @@ const clientSchema = new mongoose.Schema(
         }
       },
       avatar: {
-        type: String
+        type: String,
+        default: "http://dev.changeartwork.com/images/assets/avatar.jpg"
       },
       profile_status: {
         type: String,
