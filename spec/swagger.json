@@ -234,6 +234,141 @@
                 }
             }
         },
+        "/login-client": {
+            "post": {
+                "summary": "Login authentication",
+                "description": "Authenticate the client credentials, API is used publicly to login into app.",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "client_id",
+                        "description": "An unique client_id of the client",
+                        "type": "string",
+                        "required": true,
+                        "example": "tony.dev@changeartwork.com"
+                    },
+                    {
+                        "in": "body",
+                        "name": "email",
+                        "description": "An unique email address of client",
+                        "type": "string",
+                        "required": true,
+                        "example": "tony.dev@changeartwork.com"
+                    },
+                    {
+                        "in": "body",
+                        "name": "password",
+                        "description": "Password for the client account",
+                        "type": "string",
+                        "required": true,
+                        "example": "pass123"
+                    },
+                    {
+                        "in": "body",
+                        "name": "role",
+                        "description": "Role of the client account. It should be always as 'client'",
+                        "type": "string",
+                        "required": true,
+                        "example": "client"
+                    }
+
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login successfull",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Login successfull"
+                                },
+                                "accessToken": {
+                                    "type": "string",
+                                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYTMzYjRlZmE5NjZhNjcxMDFmMTkzYyIsImlhdCI6MTY3MTY0NzExNywiZXhwIjoxNjcxNjUwNzE3fQ.SEyHjBXtTlu7C6E9FSkJqQYqVeBH8ZZBX-kSp4sh4BU"
+                                },
+                                "client":{
+                                    "client_id": "0154",
+                                    "client_status": "ACTIVE",
+                                    "profile":{
+                                        "_id": {
+                                            "type": "string",
+                                            "example": "63a33b4efa966a67101f193c"
+                                        },
+                                        "email":{
+                                            "type": "string",
+                                            "example": "tony.dev@changeartwork.com"
+                                        },
+                                        "first_name":{
+                                            "type": "string",
+                                            "example": "Tony"
+                                        },
+                                        "last_name":{
+                                            "type": "string",
+                                            "example": "Dev"
+                                        },
+                                        "avatar": {
+                                            "type": "string",
+                                            "example": "http://dev.changeartwork.com/images/assets/avatar.jpg"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Invalid Password!"
+                                },
+                                "accessToken":{
+                                    "type": "string",
+                                    "example": null
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "User Not found."
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Something went wrong"
+                                },
+                                "error":{
+                                    "type": "string",
+                                    "example": "Error in account login due to server issue."
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/register-client": {
             "post": {
                 "summary": "Register new client",
