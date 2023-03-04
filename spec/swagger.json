@@ -8,6 +8,13 @@
             "email": "tony.dev@changeartwork.com"
         }
     },
+    "securityDefinitions": {
+        "JWT": {
+            "type": "apiKey",
+            "in": "header",
+            "name": "Authorization"
+        }
+    },
     "schemes": [
         "http"
     ],
@@ -62,7 +69,6 @@
                         "required": true,
                         "example": "admin"
                     }
-
                 ],
                 "responses": {
                     "201": {
@@ -110,7 +116,7 @@
                                     "type": "string",
                                     "example": "Something went wrong"
                                 },
-                                "error":{
+                                "error": {
                                     "type": "string",
                                     "example": "Error in account creation due to server issue."
                                 }
@@ -147,7 +153,6 @@
                         "required": true,
                         "example": "pass123"
                     }
-
                 ],
                 "responses": {
                     "200": {
@@ -163,22 +168,22 @@
                                     "type": "string",
                                     "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYTMzYjRlZmE5NjZhNjcxMDFmMTkzYyIsImlhdCI6MTY3MTY0NzExNywiZXhwIjoxNjcxNjUwNzE3fQ.SEyHjBXtTlu7C6E9FSkJqQYqVeBH8ZZBX-kSp4sh4BU"
                                 },
-                                "user":{
+                                "user": {
                                     "type": "object",
-                                    "properties":{
+                                    "properties": {
                                         "id": {
                                             "type": "string",
                                             "example": "63a33b4efa966a67101f193c"
                                         },
-                                        "email":{
+                                        "email": {
                                             "type": "string",
                                             "example": "tony.dev@changeartwork.com"
                                         },
-                                        "name":{
+                                        "name": {
                                             "type": "string",
                                             "example": "Tony Dev"
                                         },
-                                        "role":{
+                                        "role": {
                                             "type": "string",
                                             "example": "admin"
                                         }
@@ -196,7 +201,7 @@
                                     "type": "string",
                                     "example": "Invalid Password!"
                                 },
-                                "accessToken":{
+                                "accessToken": {
                                     "type": "string",
                                     "example": null
                                 }
@@ -224,7 +229,7 @@
                                     "type": "string",
                                     "example": "Something went wrong"
                                 },
-                                "error":{
+                                "error": {
                                     "type": "string",
                                     "example": "Error in account login due to server issue."
                                 }
@@ -277,7 +282,6 @@
                         "required": true,
                         "example": "client"
                     }
-
                 ],
                 "responses": {
                     "200": {
@@ -293,29 +297,41 @@
                                     "type": "string",
                                     "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYTMzYjRlZmE5NjZhNjcxMDFmMTkzYyIsImlhdCI6MTY3MTY0NzExNywiZXhwIjoxNjcxNjUwNzE3fQ.SEyHjBXtTlu7C6E9FSkJqQYqVeBH8ZZBX-kSp4sh4BU"
                                 },
-                                "client":{
-                                    "client_id": "0154",
-                                    "client_status": "ACTIVE",
-                                    "profile":{
-                                        "_id": {
+                                "client": {
+                                    "type": "object",
+                                    "properties": {
+                                        "client_id": {
                                             "type": "string",
-                                            "example": "63a33b4efa966a67101f193c"
+                                            "example": "0154"
                                         },
-                                        "email":{
+                                        "client_status": {
                                             "type": "string",
-                                            "example": "tony.dev@changeartwork.com"
+                                            "example": "ACTIVE"
                                         },
-                                        "first_name":{
-                                            "type": "string",
-                                            "example": "Tony"
-                                        },
-                                        "last_name":{
-                                            "type": "string",
-                                            "example": "Dev"
-                                        },
-                                        "avatar": {
-                                            "type": "string",
-                                            "example": "http://dev.changeartwork.com/images/assets/avatar.jpg"
+                                        "profile": {
+                                            "type": "object",
+                                            "properties": {
+                                                "_id": {
+                                                    "type": "string",
+                                                    "example": "63a33b4efa966a67101f193c"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "tony.dev@changeartwork.com"
+                                                },
+                                                "first_name": {
+                                                    "type": "string",
+                                                    "example": "Tony"
+                                                },
+                                                "last_name": {
+                                                    "type": "string",
+                                                    "example": "Dev"
+                                                },
+                                                "avatar": {
+                                                    "type": "string",
+                                                    "example": "http://dev.changeartwork.com/images/assets/avatar.jpg"
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -331,7 +347,7 @@
                                     "type": "string",
                                     "example": "Invalid Password!"
                                 },
-                                "accessToken":{
+                                "accessToken": {
                                     "type": "string",
                                     "example": null
                                 }
@@ -359,7 +375,7 @@
                                     "type": "string",
                                     "example": "Something went wrong"
                                 },
-                                "error":{
+                                "error": {
                                     "type": "string",
                                     "example": "Error in account login due to server issue."
                                 }
@@ -393,8 +409,8 @@
                         "name": "profile",
                         "description": "List profiles associated with the client ID",
                         "required": true,
-                        "schema":{
-                            "type": "array",
+                        "schema": {
+                            "type": "object",
                             "items": {
                                 "$ref": "#/definitions/profileList"
                             }
@@ -422,7 +438,7 @@
                         "type": "string",
                         "required": true,
                         "example": "9898909878"
-                    }, 
+                    },
                     {
                         "in": "body",
                         "name": "payment_terms_in_days",
@@ -454,7 +470,13 @@
                         "name": "payment_mode",
                         "description": "Payment mode of the client account.",
                         "type": "string",
-                        "enum": ["CC", "CCF", "PP", "CQ", "ACT"],
+                        "enum": [
+                            "CC",
+                            "CCF",
+                            "PP",
+                            "CQ",
+                            "ACT"
+                        ],
                         "required": true,
                         "example": "CC"
                     },
@@ -537,7 +559,7 @@
                                     "type": "string",
                                     "example": "Something went wrong"
                                 },
-                                "error":{
+                                "error": {
                                     "type": "string",
                                     "example": "Error in account creation due to server issue."
                                 }
@@ -546,9 +568,92 @@
                     }
                 }
             }
+        },
+        "/profile": {
+            "get": {
+                "summary": "Get user profile",
+                "description": "Get the profile of user belongs to the currently logged user.",
+                "JWT": [],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully returns list of quotations",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "avatar": {
+                                    "type": "string",
+                                    "example": "http://dev.changeartwork.com/images/assets/avatar.jpg"
+                                },
+                                "profile_status": {
+                                    "type": "string",
+                                    "example": "ACTIVE"
+                                },
+                                "_id": {
+                                    "type": "string",
+                                    "example": "64019a03ad3cbe0f2c6487f2"
+                                },
+                                "first_name": {
+                                    "type": "string",
+                                    "example": "Tony"
+                                },
+                                "last_name": {
+                                    "type": "string",
+                                    "example": "Dev"
+                                },
+                                "email": {
+                                    "type": "string",
+                                    "example": "user222@changedev.com"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "You are not authorized"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Invalid Token"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "Something went wrong"
+                                },
+                                "error": {
+                                    "type": "string",
+                                    "example": "Server timeout issue"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
-    
     "definitions": {
         "profileList": {
             "type": "object",
