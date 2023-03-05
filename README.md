@@ -6,24 +6,23 @@ This is a microservice for user registeration, login and profile management. JWT
 
 ## API Reference
 
-#### Get user profile
 
-```http
-  Swagger /v1/api/user/spec
+```bash
+  http://dev.changeartwork.com/v1/api/user/spec
 ```
 
 
 
 ## Development
 
-Install user-service with npm
+Install user-service with npm in local
 
 ```bash
   git clone https://github.com/changeartwork/user-service.git
   cd user-service
   npm install 
   npm start
-  Run the APIs using postman collection
+  Run the APIs using postman collection or using swagger
 ```
     
 ## Environment Variables
