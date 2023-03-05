@@ -119,7 +119,7 @@ Router.post('/login-client',
         if (!client) {
           return res.status(404)
             .send({
-              message: "Client not found."
+              message: "Client not found for "+ req.body.client_id
             });
         }
 
@@ -132,7 +132,7 @@ Router.post('/login-client',
         if (!passwordIsValid) {
           return res.status(401)
             .send({
-              message: "Invalid Password!"
+              message: "Invalid Password"
             });
         }
 
@@ -140,10 +140,18 @@ Router.post('/login-client',
         if (req.body.role != client.role) {
           return res.status(401)
             .send({
-              accessToken: null,
-              message: "Unauthorized Access!"
+              message: "Unauthorized Access"
             });
         }
+
+        // User validation
+        currentProfile = client.profile.filter( i  => req.body.email === i.email)
+          if(currentProfile.length == 0)
+          return res.status(404)
+          .send({
+            message: "User profile not found for "+ req.body.email
+          });
+            
         //signing token with client id
         var token = jwt.sign({
           client_id: client.client_id,
@@ -154,11 +162,11 @@ Router.post('/login-client',
         });
 
         //filter only the logged client profile
+
         var filterClient = (profile, email) => {
-          profile.filter(function (e) {
-            return e.email == email
-          })
-          return profile[0];
+          currentProfile = profile.filter( i  => email === i.email)
+          if(currentProfile.length > 0)
+            return currentProfile[0];
         }
 
 
