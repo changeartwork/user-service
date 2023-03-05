@@ -1,7 +1,7 @@
 {
-  "name": "auth-service",
+  "name": "user-service",
   "version": "1.0.0",
-  "description": "Authentication and Authorization using JWT",
+  "description": "User registration, login and profile management service.",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",

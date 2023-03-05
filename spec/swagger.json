@@ -1,9 +1,9 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "REST endpoint documentation of Auth service APIs",
+        "description": "User registration, login and profile management service.",
         "version": "1.0.0",
-        "title": "Auth Service API",
+        "title": "User Service API",
         "contact": {
             "email": "tony.dev@changeartwork.com"
         }
@@ -19,7 +19,7 @@
         "http"
     ],
     "host": "dev.changeartwork.com",
-    "basePath": "/v1/api/auth",
+    "basePath": "/v1/api/user",
     "paths": {
         "/register": {
             "post": {
@@ -412,7 +412,7 @@
                         "schema": {
                             "type": "object",
                             "items": {
-                                "$ref": "#/definitions/profileList"
+                                "$ref": "#/definitions/profile"
                             }
                         }
                     },
@@ -655,7 +655,7 @@
         }
     },
     "definitions": {
-        "profileList": {
+        "profile": {
             "type": "object",
             "properties": {
                 "first_name": {

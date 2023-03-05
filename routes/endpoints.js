@@ -1,4 +1,3 @@
-const path = require('path');
 const express = require('express');
 const User = require('../model/user');
 const Client = require('../model/client');
