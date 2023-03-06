@@ -4,6 +4,7 @@ const userRoute = require('./routes/endpoints');
 const profile = require('./routes/profile');
 const registerClient = require('./routes/register-client');
 const loginClient = require('./routes/login-client');
+const forgotPassword = require('./routes/forgot-password');
 const fs = require('fs');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./spec/swagger.json');
@@ -14,7 +15,7 @@ require('./config/db');
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/v1/api/user',userRoute, profile, registerClient, loginClient);
+app.use('/v1/api/user',userRoute, profile, registerClient, loginClient, forgotPassword);
 app.use(cors());
 app.use('/v1/api/user/spec', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {customCss}));
 
