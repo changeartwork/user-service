@@ -398,14 +398,6 @@
                 "parameters": [
                     {
                         "in": "body",
-                        "name": "client_id",
-                        "description": "Unquie client ID",
-                        "type": "string",
-                        "required": true,
-                        "example": "1022"
-                    },
-                    {
-                        "in": "body",
                         "name": "profile",
                         "description": "List profiles associated with the client ID",
                         "required": true,
@@ -515,7 +507,7 @@
                 ],
                 "responses": {
                     "201": {
-                        "description": "Client {client_id} registered successfully",
+                        "description": "Client ID {client_id} registered successfully",
                         "schema": {
                             "type": "object",
                             "properties": {

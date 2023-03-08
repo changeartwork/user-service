@@ -1,12 +1,8 @@
 const mongoose = require('mongoose');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const clientSchema = new mongoose.Schema(
   {
-    client_id: {
-      type: String,
-      unique: [true, "Client ID already exists in database"],
-      required: [true, "Client ID is manditory"]
-    },
     profile: [{
       first_name: {
         type: String,
@@ -91,9 +87,12 @@ const clientSchema = new mongoose.Schema(
       required: [true, "Zip Code is required"]
     }
   },
-  {
-    timestamps: true
-  }
+  { timestamps: true },
+  { _id: false }
 );
+
+clientSchema.plugin(AutoIncrement, {inc_field: 'client_id'});
+
+
 
 module.exports = mongoose.model('client', clientSchema);

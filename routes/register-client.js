@@ -8,17 +8,12 @@ Router.post(
   '/register-client',
   async (req, res) => {
     try {
-      const { client_id, profile, password, business_name, phone_number, payment_mode, payment_terms_in_days, currency_code, state, city, country, zipcode } = req.body;
-      if (client_id == null || password == null) {
+      const { profile, password, business_name, phone_number, payment_mode, payment_terms_in_days, currency_code, state, city, country, zipcode } = req.body;
+      if (password == null) {
         res.status(400).send({ message: "Check the manditory fields." });
-      }
-      const oldClient = await Client.findOne({ client_id });
-      if (oldClient) {
-        return res.status(409).send({ message: "Client already exist. Please Login" });
       }
       encryptedPassword = await bcrypt.hash(password, 10);
       const client = new Client({
-        client_id,
         profile,
         business_name,
         phone_number,
@@ -34,7 +29,7 @@ Router.post(
 
       client.save((err, client) => {
         if (err) {
-          res.status(500)
+          res.status(400)
             .send({
               message: "Something went wrong",
               error: err.message
@@ -43,7 +38,7 @@ Router.post(
         } else {
           res.status(200)
             .send({
-              message: "Client " + client.client_id + " registered successfully"
+              message: "Client ID " + client.client_id + " registered successfully"
             })
         }
       });
