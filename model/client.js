@@ -55,6 +55,10 @@ const clientSchema = new mongoose.Schema(
       type: String,
       required: [true, "Phone number is required"]
     },
+    cell_number: {
+      type: String,
+      required: [true, "Cell number is required"]
+    },
     payment_terms_in_days: {
       type: String,
       enum: ["7", "15", "30"],

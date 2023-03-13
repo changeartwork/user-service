@@ -433,6 +433,14 @@
                     },
                     {
                         "in": "body",
+                        "name": "cell_number",
+                        "description": "Cell number of the client account.",
+                        "type": "string",
+                        "required": true,
+                        "example": "9898909878"
+                    },
+                    {
+                        "in": "body",
                         "name": "payment_terms_in_days",
                         "description": "Payment terms in days.",
                         "type": "string",

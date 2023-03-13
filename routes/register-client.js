@@ -8,7 +8,7 @@ Router.post(
   '/register-client',
   async (req, res) => {
     try {
-      const { profile, password, business_name, phone_number, payment_mode, payment_terms_in_days, currency_code, state, city, country, zipcode } = req.body;
+      const { profile, password, business_name, phone_number, cell_number, payment_mode, payment_terms_in_days, currency_code, state, city, country, zipcode } = req.body;
       if (password == null) {
         res.status(400).send({ message: "Check the manditory fields." });
       }
@@ -17,6 +17,7 @@ Router.post(
         profile,
         business_name,
         phone_number,
+        cell_number,
         payment_terms_in_days,
         currency_code,
         city,
