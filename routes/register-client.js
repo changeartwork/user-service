@@ -1,8 +1,8 @@
 const express = require('express');
 const Client = require('../model/client');
 const Router = express.Router();
-const bcrypt = require("bcryptjs");
-const auth = require("../middleware/auth");
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr('change');
 
 Router.post(
   '/register-client',
@@ -12,7 +12,7 @@ Router.post(
       if (password == null) {
         res.status(400).send({ message: "Check the manditory fields." });
       }
-      encryptedPassword = await bcrypt.hash(password, 10);
+      encryptedPassword = cryptr.encrypt(password);
       const client = new Client({
         profile,
         business_name,

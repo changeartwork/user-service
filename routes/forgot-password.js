@@ -2,6 +2,8 @@ const express = require('express');
 const Client = require('../model/client');
 const Router = express.Router();
 const axios = require('axios');
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr('change');
 
 
 Router.post('/forgot-password', async (req, res) => {
@@ -30,7 +32,7 @@ Router.post('/forgot-password', async (req, res) => {
         "client": {
           "client_id": client[0].client_id,
           "email": req.body.email,
-          "password": client[0].password
+          "password": cryptr.decrypt(client[0].password)
         }
       }
     })

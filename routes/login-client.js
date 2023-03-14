@@ -1,9 +1,9 @@
 const express = require('express');
 const Client = require('../model/client');
 const Router = express.Router();
-const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const auth = require("../middleware/auth");
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr('change');
 
 Router.post('/login-client',
   async (req, res) => {
@@ -26,12 +26,9 @@ Router.post('/login-client',
         }
 
         //comparing passwords
-        var passwordIsValid = bcrypt.compareSync(
-          req.body.password,
-          client.password
-        );
+        var passwordDecrypted = cryptr.decrypt(client.password);
         // checking if password was valid and send response accordingly
-        if (!passwordIsValid) {
+        if (req.body.password != passwordDecrypted) {
           return res.status(401)
             .send({
               message: "Invalid Password"
